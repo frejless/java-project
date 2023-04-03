@@ -39,6 +39,7 @@ public class Test {
         String nazov;
         String reziser;
         int rok;
+        int doporucenyVek;
 
         int volba;
         boolean run = true;
@@ -72,7 +73,19 @@ public class Test {
                             break;
                         }
                         else if (volba == 2){
-                            System.out.println("moc dobre");
+                            System.out.println("Zadajte nazov filmu :");
+                            nazov = sc2.nextLine();
+                            System.out.println("Zadajte rezisera filmu :");
+                            reziser = sc2.nextLine();
+                            System.out.println("Zadajte rok filmu :");
+                            rok = pouzeCelaCisla(sc1);
+                            System.out.println("Zadajte doporuceny vek divaka :");
+                            doporucenyVek = pouzeCelaCisla(sc1);
+                            if (mojeDatabaze.setAnimovanyFilm(nazov, reziser, rok, doporucenyVek) == true)
+                                System.out.println("Film bol pridany");
+                            else
+                                System.out.println("Film sa nepodarilo pridat");
+
                             break;
                         }
                     }

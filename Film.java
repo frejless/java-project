@@ -7,7 +7,7 @@ interface FilmInterface {
     public int getRok();
 
     public int getHodnotenie();
-
+    
 
 }
 
@@ -17,8 +17,7 @@ public class Film implements FilmInterface {
     private int rok;
     private int hodnotenie;
 
-    private int doporucenyVek;
-
+    
     public Film(String nazov, String reziser, int rok, int hodnotenie) {
         this.nazov = nazov;
         this.reziser = reziser;

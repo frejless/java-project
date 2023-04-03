@@ -2,8 +2,8 @@ public class AnimovanyFilm  extends Film {
 
     private int doporucenyVek;
 
-    public AnimovanyFilm(String nazov, String reziser, int rok, int hodnotenie, int doporucenyVek) {
-        super(nazov, reziser, rok, hodnotenie);
+    public AnimovanyFilm(String nazov, String reziser, int rok, int doporucenyVek) {
+        super(nazov, reziser, rok, 0);
         this.doporucenyVek = doporucenyVek;
     }
 
