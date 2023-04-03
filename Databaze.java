@@ -31,7 +31,6 @@ public class Databaze {
 
     }
 
-
     private Map<String,Film> prvkyDatabaze;
 
 
