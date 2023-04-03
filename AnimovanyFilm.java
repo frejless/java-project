@@ -1,4 +1,4 @@
-public class AnimovanyFilm  extends Film {
+public class AnimovanyFilm extends Film {
 
     private int doporucenyVek;
 

@@ -76,6 +76,7 @@ public class Test {
                         }
                     }
                     break;
+
                 case 2 :
                     System.out.println("Zadajte nazov filmu :");
                     nazov = sc2.nextLine();
@@ -86,7 +87,6 @@ public class Test {
                     else
                         System.out.println("Hodnotenie filmu sa nepodarilo nastavit");
                     break;
-
 
                 case 8 :
                     mojeDatabaze.vypisDatabaze();
