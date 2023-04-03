@@ -2,6 +2,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 public class Databaze {
+
+    private Map<String,Film> prvkyDatabaze;
     Databaze() {
         prvkyDatabaze = new HashMap<String,Film>();
     }
@@ -24,14 +26,19 @@ public class Databaze {
 
         prvkyDatabaze.forEach((key, value) -> {
             if (value instanceof AnimovanyFilm)
-                System.out.println("Nazov: " + value.getNazov() + " Reziser: " + value.getReziser() + " Rok: " + value.getRok() + " Doporuceny Vek: " + ((AnimovanyFilm) value).getDoporucenyVek());
+                System.out.println("Nazov: " + value.getNazov() + " Reziser: " + value.getReziser() + " Rok: " + value.getRok() + " Doporuceny Vek: " + ((AnimovanyFilm) value).getDoporucenyVek() + " Hodnotenie: " + value.getHodnotenie());
             else if (value instanceof HranyFilm)
-                System.out.println("Nazov: " + value.getNazov() + " Reziser: " + value.getReziser() + " Rok: " + value.getRok());
+                System.out.println("Nazov: " + value.getNazov() + " Reziser: " + value.getReziser() + " Rok: " + value.getRok() + " Hodnotenie: " + value.getHodnotenie());
         });
 
     }
 
-    private Map<String,Film> prvkyDatabaze;
-
-
+    public boolean setHodnotenieFilmu(String nazov, int hodnotenie) {
+        if (prvkyDatabaze.get(nazov) instanceof HranyFilm)
+            return ((HranyFilm) prvkyDatabaze.get(nazov)).setHodnotenie(hodnotenie);
+        else if (prvkyDatabaze.get(nazov) instanceof AnimovanyFilm)
+            return ((AnimovanyFilm) prvkyDatabaze.get(nazov)).setHodnotenie(hodnotenie);
+        else
+            return false;
+    }
 }
