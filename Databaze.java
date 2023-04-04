@@ -56,4 +56,10 @@ public class Databaze {
             System.out.println(prvkyDatabaze.get(nazov).getNazov() + " je animovany film, mozete mu dat 1-10 bodov");
     }
 
+    public void vymazFilm(String nazov) {
+        if (prvkyDatabaze.remove(nazov) != null)
+            System.out.println("Film bol vymazany");
+        else
+            System.out.println("Film sa nepodarilo vymazat");
+    }
 }

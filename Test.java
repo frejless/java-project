@@ -34,6 +34,7 @@ public class Test {
             System.out.println("1 .. pridanie noveho filmu");
             System.out.println("2 .. nastavenie hodnotenia filmu");
             System.out.println("3 .. informacie o filme");
+            System.out.println("4 .. odstranenie filmu");
             System.out.println("8 .. vypis vsetkych filmov");
             System.out.println("9 .. koniec programu");
 
@@ -88,6 +89,11 @@ public class Test {
                     mojeDatabaze.FilmInfo(nazov);
                     break;
 
+                case 4 :
+                    System.out.println("Zadajte nazov filmu :");
+                    nazov = sc2.nextLine();
+                    mojeDatabaze.vymazFilm(nazov);
+                    break;
 
                 case 8 :
                     mojeDatabaze.vypisDatabaze();
