@@ -42,5 +42,4 @@ public class Film implements FilmInterface {
     public int getHodnotenie() {
         return hodnotenie;
     }
-
 }

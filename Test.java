@@ -33,6 +33,7 @@ public class Test {
             System.out.println("Vyberte pozadovanu cinnost:");
             System.out.println("1 .. pridanie noveho filmu");
             System.out.println("2 .. nastavenie hodnotenia filmu");
+            System.out.println("3 .. vypis informacie o filme");
             System.out.println("8 .. vypis filmov");
             System.out.println("9 .. koniec programu");
 
@@ -78,6 +79,7 @@ public class Test {
                     break;
 
                 case 2 :
+                    System.out.println("(hrane filmy mozu mat hodnotenie 0-5, animovane filmy 0-10)\n");
                     System.out.println("Zadajte nazov filmu :");
                     nazov = sc2.nextLine();
                     System.out.println("Zadajte hodnotenie filmu :");
@@ -87,6 +89,13 @@ public class Test {
                     else
                         System.out.println("Hodnotenie filmu sa nepodarilo nastavit");
                     break;
+
+                case 3 :
+                    System.out.println("Zadajte nazov filmu :");
+                    nazov = sc2.nextLine();
+                    mojeDatabaze.FilmInfo(nazov);
+                    break;
+
 
                 case 8 :
                     mojeDatabaze.vypisDatabaze();

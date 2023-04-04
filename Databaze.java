@@ -41,4 +41,14 @@ public class Databaze {
         else
             return false;
     }
+
+    public void FilmInfo(String nazov) {
+        if (prvkyDatabaze.get(nazov) instanceof HranyFilm)
+            System.out.println("Nazov: " + prvkyDatabaze.get(nazov).getNazov() + " Reziser: " + prvkyDatabaze.get(nazov).getReziser() + " Rok: " + prvkyDatabaze.get(nazov).getRok() + " Hodnotenie: " + prvkyDatabaze.get(nazov).getHodnotenie());
+        else if (prvkyDatabaze.get(nazov) instanceof AnimovanyFilm)
+            System.out.println("Nazov: " + prvkyDatabaze.get(nazov).getNazov() + " Reziser: " + prvkyDatabaze.get(nazov).getReziser() + " Rok: " + prvkyDatabaze.get(nazov).getRok() + " Doporuceny Vek: " + ((AnimovanyFilm) prvkyDatabaze.get(nazov)).getDoporucenyVek() + " Hodnotenie: " + prvkyDatabaze.get(nazov).getHodnotenie());
+        else if (prvkyDatabaze.get(nazov) == null)
+            System.out.println("Film nie je v databaze");
+    }
+
 }
