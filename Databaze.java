@@ -25,9 +25,9 @@ public class Databaze {
     public void vypisDatabaze() {
         prvkyDatabaze.forEach((key, value) -> {
             if (value instanceof AnimovanyFilm)
-                System.out.println("Nazov: " + value.getNazov() + " Reziser: " + value.getReziser() + " Rok: " + value.getRok() + " Doporuceny Vek: " + ((AnimovanyFilm) value).getDoporucenyVek() + " Hodnotenie: " + value.getHodnotenie());
+                System.out.println("Nazov: " + value.getNazov() + " Reziser: " + value.getReziser() + " Rok: " + value.getRok() + " Doporuceny Vek: " + ((AnimovanyFilm) value).getDoporucenyVek() + " Hodnotenie: " + value.getHodnotenie() + " " + value.getKomentar());
             else if (value instanceof HranyFilm)
-                System.out.println("Nazov: " + value.getNazov() + " Reziser: " + value.getReziser() + " Rok: " + value.getRok() + " Hodnotenie: " + value.getHodnotenie());
+                System.out.println("Nazov: " + value.getNazov() + " Reziser: " + value.getReziser() + " Rok: " + value.getRok() + " Hodnotenie: " + value.getHodnotenie() + " " + value.getKomentar());
         });
     }
 
@@ -42,9 +42,9 @@ public class Databaze {
 
     public void FilmInfo(String nazov) {
         if (prvkyDatabaze.get(nazov) instanceof HranyFilm)
-            System.out.println("Nazov: " + prvkyDatabaze.get(nazov).getNazov() + " Reziser: " + prvkyDatabaze.get(nazov).getReziser() + " Rok: " + prvkyDatabaze.get(nazov).getRok() + " Hodnotenie: " + prvkyDatabaze.get(nazov).getHodnotenie());
+            System.out.println("Nazov: " + prvkyDatabaze.get(nazov).getNazov() + " Reziser: " + prvkyDatabaze.get(nazov).getReziser() + " Rok: " + prvkyDatabaze.get(nazov).getRok() + " Hodnotenie: " + prvkyDatabaze.get(nazov).getHodnotenie() + " " + prvkyDatabaze.get(nazov).getKomentar());
         else if (prvkyDatabaze.get(nazov) instanceof AnimovanyFilm)
-            System.out.println("Nazov: " + prvkyDatabaze.get(nazov).getNazov() + " Reziser: " + prvkyDatabaze.get(nazov).getReziser() + " Rok: " + prvkyDatabaze.get(nazov).getRok() + " Doporuceny Vek: " + ((AnimovanyFilm) prvkyDatabaze.get(nazov)).getDoporucenyVek() + " Hodnotenie: " + prvkyDatabaze.get(nazov).getHodnotenie());
+            System.out.println("Nazov: " + prvkyDatabaze.get(nazov).getNazov() + " Reziser: " + prvkyDatabaze.get(nazov).getReziser() + " Rok: " + prvkyDatabaze.get(nazov).getRok() + " Doporuceny Vek: " + ((AnimovanyFilm) prvkyDatabaze.get(nazov)).getDoporucenyVek() + " Hodnotenie: " + prvkyDatabaze.get(nazov).getHodnotenie() + " " + prvkyDatabaze.get(nazov).getKomentar());
         else if (prvkyDatabaze.get(nazov) == null)
             System.out.println("Film nie je v databaze");
     }
@@ -61,5 +61,10 @@ public class Databaze {
             System.out.println("Film bol vymazany");
         else
             System.out.println("Film sa nepodarilo vymazat");
+    }
+
+    public void setKomentarFilmu(String nazov, String komentar) {
+        prvkyDatabaze.get(nazov).setKomentar(komentar);
+
     }
 }

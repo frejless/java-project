@@ -31,8 +31,8 @@ public class Test {
 
         while(run) {
             System.out.println("Vyberte pozadovanu cinnost:");
-            System.out.println("1 .. pridanie noveho filmu");
-            System.out.println("2 .. nastavenie hodnotenia filmu");
+            System.out.println("1 .. novy film");
+            System.out.println("2 .. hodnotenie filmu");
             System.out.println("3 .. informacie o filme");
             System.out.println("4 .. odstranenie filmu");
             System.out.println("8 .. vypis vsetkych filmov");
@@ -81,6 +81,17 @@ public class Test {
                         System.out.println("Hodnotenie filmu bolo nastavene");
                     else
                         System.out.println("Hodnotenie filmu sa nepodarilo nastavit");
+                    System.out.println("Chcete pridat komentar k filmu ? (y/n)");
+                    String odpoved = sc2.nextLine();
+                    if (odpoved.equals("y")) {
+                        System.out.println("Zadajte komentar :");
+                        String komentar = sc2.nextLine();
+                        mojeDatabaze.setKomentarFilmu(nazov, komentar);
+                    }
+                    else if (odpoved.equals("n"))
+                        System.out.println("Komentar nebol pridany");
+                    else
+                        System.out.println("Neplatna odpoved");
                     break;
 
                 case 3 :
