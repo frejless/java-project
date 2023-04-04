@@ -33,8 +33,8 @@ public class Test {
             System.out.println("Vyberte pozadovanu cinnost:");
             System.out.println("1 .. pridanie noveho filmu");
             System.out.println("2 .. nastavenie hodnotenia filmu");
-            System.out.println("3 .. vypis informacie o filme");
-            System.out.println("8 .. vypis filmov");
+            System.out.println("3 .. informacie o filme");
+            System.out.println("8 .. vypis vsetkych filmov");
             System.out.println("9 .. koniec programu");
 
             volba = pouzeCelaCisla(sc1);
@@ -52,11 +52,7 @@ public class Test {
                             reziser = sc2.nextLine();
                             System.out.println("Zadajte rok filmu :");
                             rok = pouzeCelaCisla(sc1);
-                            if (mojeDatabaze.setHranyFilm(nazov, reziser, rok) == true)
-                                System.out.println("Film bol pridany");
-                            else
-                                System.out.println("Film sa nepodarilo pridat");
-
+                            mojeDatabaze.setHranyFilm(nazov, reziser, rok);
                             break;
                         }
                         else if (volba == 2){
@@ -68,20 +64,16 @@ public class Test {
                             rok = pouzeCelaCisla(sc1);
                             System.out.println("Zadajte doporuceny vek divaka :");
                             doporucenyVek = pouzeCelaCisla(sc1);
-                            if (mojeDatabaze.setAnimovanyFilm(nazov, reziser, rok, doporucenyVek) == true)
-                                System.out.println("Film bol pridany");
-                            else
-                                System.out.println("Film sa nepodarilo pridat");
-
+                            mojeDatabaze.setAnimovanyFilm(nazov, reziser, rok, doporucenyVek);
                             break;
                         }
                     }
                     break;
 
                 case 2 :
-                    System.out.println("(hrane filmy mozu mat hodnotenie 0-5, animovane filmy 0-10)\n");
                     System.out.println("Zadajte nazov filmu :");
                     nazov = sc2.nextLine();
+                    mojeDatabaze.typFilmu(nazov);
                     System.out.println("Zadajte hodnotenie filmu :");
                     hodnotenie = pouzeCelaCisla(sc1);
                     if (mojeDatabaze.setHodnotenieFilmu(nazov, hodnotenie) == true)
@@ -106,8 +98,5 @@ public class Test {
                     break;
             }
         }
-
-
     }
-
 }

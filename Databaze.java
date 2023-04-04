@@ -8,29 +8,27 @@ public class Databaze {
         prvkyDatabaze = new HashMap<String,Film>();
     }
 
-    public boolean setHranyFilm(String nazov, String reziser, int rok) {
+    public void setHranyFilm(String nazov, String reziser, int rok) {
         if (prvkyDatabaze.put(nazov, new HranyFilm(nazov, reziser, rok)) == null)
-            return true;
+            System.out.println("Film bol pridany");
         else
-            return false;
+            System.out.println("Film sa nepodarilo pridat");
     }
 
-    public boolean setAnimovanyFilm(String nazov, String reziser, int rok, int doporucenyVek) {
+    public void setAnimovanyFilm(String nazov, String reziser, int rok, int doporucenyVek) {
         if (prvkyDatabaze.put(nazov, new AnimovanyFilm(nazov, reziser, rok, doporucenyVek)) == null)
-            return true;
+            System.out.println("Film bol pridany");
         else
-            return false;
+            System.out.println("Film sa nepodarilo pridat");
     }
 
     public void vypisDatabaze() {
-
         prvkyDatabaze.forEach((key, value) -> {
             if (value instanceof AnimovanyFilm)
                 System.out.println("Nazov: " + value.getNazov() + " Reziser: " + value.getReziser() + " Rok: " + value.getRok() + " Doporuceny Vek: " + ((AnimovanyFilm) value).getDoporucenyVek() + " Hodnotenie: " + value.getHodnotenie());
             else if (value instanceof HranyFilm)
                 System.out.println("Nazov: " + value.getNazov() + " Reziser: " + value.getReziser() + " Rok: " + value.getRok() + " Hodnotenie: " + value.getHodnotenie());
         });
-
     }
 
     public boolean setHodnotenieFilmu(String nazov, int hodnotenie) {
@@ -49,6 +47,13 @@ public class Databaze {
             System.out.println("Nazov: " + prvkyDatabaze.get(nazov).getNazov() + " Reziser: " + prvkyDatabaze.get(nazov).getReziser() + " Rok: " + prvkyDatabaze.get(nazov).getRok() + " Doporuceny Vek: " + ((AnimovanyFilm) prvkyDatabaze.get(nazov)).getDoporucenyVek() + " Hodnotenie: " + prvkyDatabaze.get(nazov).getHodnotenie());
         else if (prvkyDatabaze.get(nazov) == null)
             System.out.println("Film nie je v databaze");
+    }
+
+    public void typFilmu (String nazov) {
+        if (prvkyDatabaze.get(nazov) instanceof HranyFilm)
+            System.out.println(prvkyDatabaze.get(nazov).getNazov() + " je hrany film, mozete mu dat 1-5 hviezdiciek");
+        else if (prvkyDatabaze.get(nazov) instanceof AnimovanyFilm)
+            System.out.println(prvkyDatabaze.get(nazov).getNazov() + " je animovany film, mozete mu dat 1-10 bodov");
     }
 
 }

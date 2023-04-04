@@ -1,12 +1,12 @@
 interface FilmInterface {
 
-    public String getNazov();
+    String getNazov();
 
-    public String getReziser();
+    String getReziser();
 
-    public int getRok();
+    int getRok();
 
-    public int getHodnotenie();
+    int getHodnotenie();
 
 }
 
@@ -42,4 +42,7 @@ public class Film implements FilmInterface {
     public int getHodnotenie() {
         return hodnotenie;
     }
+
+
 }
+
