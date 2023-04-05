@@ -1,9 +1,12 @@
 import java.util.Scanner;
 
 public class Test {
+
     static Databaze mojeDatabaze=new Databaze();
     static Scanner sc1 = new Scanner(System.in);
     static Scanner sc2 = new Scanner(System.in);
+
+
     public static int pouzeCelaCisla(Scanner sc) {
         int cislo;
         try {
@@ -19,7 +22,6 @@ public class Test {
 
 
     public static void main(String[] args) {
-
 
 
         String nazov;
@@ -54,9 +56,7 @@ public class Test {
                     break;
 
                 case 4 :
-                    System.out.println("Zadajte nazov filmu :");
-                    nazov = sc2.nextLine();
-                    mojeDatabaze.vymazFilm(nazov);
+                    deleteFilm();
                     break;
 
                 case 8 :
@@ -123,5 +123,11 @@ public class Test {
             System.out.println("Komentar nebol pridany");
         else
             System.out.println("Neplatna odpoved");
+    }
+
+    static void deleteFilm() {
+        System.out.println("Zadajte nazov filmu :");
+        String nazov = sc2.nextLine();
+        mojeDatabaze.vymazFilm(nazov);
     }
 }
