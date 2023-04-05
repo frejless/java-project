@@ -118,17 +118,20 @@ public class Test {
                 System.out.println("zadajte platne cislo");
         }
         System.out.println("Chcete pridat komentar k filmu ? (y/n)");
-        String odpoved = sc2.nextLine();
-        if (odpoved.equals("y")) {
-            System.out.println("Zadajte komentar :");
-            String komentar = sc2.nextLine();
-            mojeDatabaze.addHodnotenie(nazov, hodnotenie, komentar);
+        while(true) {
+            String odpoved = sc2.nextLine();
+            if (odpoved.equals("y")) {
+                System.out.println("Zadajte komentar :");
+                String komentar = sc2.nextLine();
+                mojeDatabaze.addHodnotenie(nazov, hodnotenie, komentar);
+                break;
+            } else if (odpoved.equals("n")) {
+                System.out.println("Komentar nebol pridany");
+                mojeDatabaze.addHodnotenie(nazov, hodnotenie, null);
+                break;
+            } else
+                System.out.println("Neplatna odpoved, zadajte y/n");
         }
-        else if (odpoved.equals("n")) {
-            System.out.println("Komentar nebol pridany");
-            mojeDatabaze.addHodnotenie(nazov, hodnotenie, null);
-        } else
-            System.out.println("Neplatna odpoved");
     }
 
     static void deleteFilm() {

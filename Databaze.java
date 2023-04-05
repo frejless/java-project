@@ -5,10 +5,7 @@ public class Databaze {
     private Map<String,Film> prvkyDatabaze = new HashMap<>();
     private Map<String, ArrayList<Hodnotenie>> prvkyHodnotenia = new HashMap<>();
 
-
-
-    Databaze() {
-    }
+    Databaze() {}
 
     public void setHranyFilm(String nazov, String reziser, int rok) {
         if (prvkyDatabaze.put(nazov, new HranyFilm(nazov, reziser, rok)) == null)
@@ -39,7 +36,7 @@ public class Databaze {
 
     public boolean setCiselneHodnotenie(String nazov, int hodnotenie) {
         if (prvkyDatabaze.get(nazov) instanceof HranyFilm)
-            return ((HranyFilm) prvkyDatabaze.get(nazov)).setHodnotenie(hodnotenie);
+            return ((HranyFilm) prvkyDatabaze.get(nazov)).sanitizeHodnotenie(hodnotenie);
         else if (prvkyDatabaze.get(nazov) instanceof AnimovanyFilm)
             return ((AnimovanyFilm) prvkyDatabaze.get(nazov)).sanitizeHodnotenie(hodnotenie);
         else
@@ -47,15 +44,15 @@ public class Databaze {
     }
 
     public void FilmInfo(String nazov) {
-        ArrayList<Hodnotenie> hodnotenia = this.getHodnotenia(nazov);
-        for (Hodnotenie hodnotenie : hodnotenia)
-            System.out.println("Hodnotenie: " + hodnotenie.getHodnotenie() + " Komentar: " + hodnotenie.getKomentar());
         if (prvkyDatabaze.get(nazov) instanceof HranyFilm){
             System.out.println("Nazov: " + prvkyDatabaze.get(nazov).getNazov() + " Reziser: " + prvkyDatabaze.get(nazov).getReziser() + " Rok: " + prvkyDatabaze.get(nazov).getRok());
         }
         else if (prvkyDatabaze.get(nazov) instanceof AnimovanyFilm){
             System.out.println("Nazov: " + prvkyDatabaze.get(nazov).getNazov() + " Reziser: " + prvkyDatabaze.get(nazov).getReziser() + " Rok: " + prvkyDatabaze.get(nazov).getRok() + " Doporuceny Vek: " + ((AnimovanyFilm) prvkyDatabaze.get(nazov)).getDoporucenyVek());
         }
+        ArrayList<Hodnotenie> hodnotenia = this.getHodnotenia(nazov);
+        for (Hodnotenie hodnotenie : hodnotenia)
+            System.out.println("Hodnotenie: " + hodnotenie.getHodnotenie() + " Komentar: " + hodnotenie.getKomentar());
     }
 
     public void typFilmu (String nazov) {

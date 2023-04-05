@@ -10,7 +10,7 @@ public class Hodnotenie {
 
     public  String getKomentar() {
         if (komentar == null) {
-            return "";
+            return "nezadany";
         }
         else {
             return komentar;

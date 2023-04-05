@@ -5,7 +5,7 @@ public class HranyFilm extends Film {
         super(nazov, reziser, rok);
     }
 
-    public boolean setHodnotenie(int hodnotenie) {
+    public boolean sanitizeHodnotenie(int hodnotenie) {
         if (hodnotenie >= 1 && hodnotenie <= 5) {
             return true;
         } else
