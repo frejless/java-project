@@ -23,10 +23,6 @@ public class Test {
 
 
         String nazov;
-        String reziser;
-        int rok;
-        int doporucenyVek;
-        int hodnotenie;
 
         int volba;
         boolean run = true;
@@ -77,18 +73,23 @@ public class Test {
         while (true) {
             System.out.println("Vyberte druh filmu :\n1 .. Hrany film\n2 .. Animovany film");
             int volba = pouzeCelaCisla(sc1);
-
-            System.out.println("Zadajte nazov filmu :");
-            String nazov = sc2.nextLine();
-            System.out.println("Zadajte rezisera filmu :");
-            String reziser = sc2.nextLine();
-            System.out.println("Zadajte rok filmu :");
-            int rok = pouzeCelaCisla(sc1);
             if (volba == 1){
+                System.out.println("Zadajte nazov filmu :");
+                String nazov = sc2.nextLine();
+                System.out.println("Zadajte rezisera filmu :");
+                String reziser = sc2.nextLine();
+                System.out.println("Zadajte rok filmu :");
+                int rok = pouzeCelaCisla(sc1);
                 mojeDatabaze.setHranyFilm(nazov, reziser, rok);
                 break;
             }
-            else if (volba == 2){
+            else if (volba == 2)
+                {System.out.println("Zadajte nazov filmu :");
+                String nazov = sc2.nextLine();
+                System.out.println("Zadajte rezisera filmu :");
+                String reziser = sc2.nextLine();
+                System.out.println("Zadajte rok filmu :");
+                int rok = pouzeCelaCisla(sc1);
                 System.out.println("Zadajte doporuceny vek divaka :");
                 int doporucenyVek = pouzeCelaCisla(sc1);
                 mojeDatabaze.setAnimovanyFilm(nazov, reziser, rok, doporucenyVek);
@@ -96,6 +97,7 @@ public class Test {
             }
         }
     }
+
     static void addRating() {
         System.out.println("Zadajte nazov filmu :");
         String nazov = sc2.nextLine();

@@ -1,11 +1,16 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Databaze {
 
     private Map<String,Film> prvkyDatabaze;
+    private Map<String, ArrayList<Hodnotenie>> prvkyHodnotenia;
+
+
+
     Databaze() {
-        prvkyDatabaze = new HashMap<String,Film>();
+        prvkyDatabaze = new HashMap<>();
     }
 
     public void setHranyFilm(String nazov, String reziser, int rok) {
@@ -69,6 +74,7 @@ public class Databaze {
 
     public void setKomentarFilmu(String nazov, String komentar) {
         prvkyDatabaze.get(nazov).setKomentar(komentar);
-
     }
+
+
 }
