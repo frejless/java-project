@@ -31,6 +31,10 @@ public class Databaze {
         });
     }
 
+    public boolean checkFilmExistence(String nazov) {
+        return prvkyDatabaze.containsKey(nazov);
+    }
+
     public boolean setHodnotenieFilmu(String nazov, int hodnotenie) {
         if (prvkyDatabaze.get(nazov) instanceof HranyFilm)
             return ((HranyFilm) prvkyDatabaze.get(nazov)).setHodnotenie(hodnotenie);
