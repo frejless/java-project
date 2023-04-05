@@ -11,9 +11,8 @@ public class AnimovanyFilm extends Film {
         return doporucenyVek;
     }
 
-    public boolean setHodnotenie(int hodnotenie) {
+    public boolean sanitizeHodnotenie(int hodnotenie) {
         if (hodnotenie >= 1 && hodnotenie <= 10) {
-            super.hodnotenie = hodnotenie;
             return true;
         } else
             return false;

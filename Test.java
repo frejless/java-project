@@ -101,27 +101,33 @@ public class Test {
     static void addRating() {
         System.out.println("Zadajte nazov filmu :");
         String nazov = sc2.nextLine();
+        int hodnotenie;
         mojeDatabaze.typFilmu(nazov);
         if (!mojeDatabaze.checkFilmExistence(nazov)) {
             System.out.println("Film neexistuje");
             return;
         }
         System.out.println("Zadajte hodnotenie filmu :");
-        int hodnotenie = pouzeCelaCisla(sc1);
-        if (mojeDatabaze.setHodnotenieFilmu(nazov, hodnotenie) == true)
-            System.out.println("Hodnotenie filmu bolo nastavene");
-        else
-            System.out.println("Hodnotenie filmu sa nepodarilo nastavit");
+        while(true) {
+            hodnotenie = pouzeCelaCisla(sc1);
+            if (mojeDatabaze.setCiselneHodnotenie(nazov, hodnotenie) == true) {
+                System.out.println("Hodnotenie filmu bolo nastavene");
+                break;
+            }
+            else
+                System.out.println("zadajte platne cislo");
+        }
         System.out.println("Chcete pridat komentar k filmu ? (y/n)");
         String odpoved = sc2.nextLine();
         if (odpoved.equals("y")) {
             System.out.println("Zadajte komentar :");
             String komentar = sc2.nextLine();
-            mojeDatabaze.setKomentarFilmu(nazov, komentar);
+            mojeDatabaze.addHodnotenie(nazov, hodnotenie, komentar);
         }
-        else if (odpoved.equals("n"))
+        else if (odpoved.equals("n")) {
             System.out.println("Komentar nebol pridany");
-        else
+            mojeDatabaze.addHodnotenie(nazov, hodnotenie, null);
+        } else
             System.out.println("Neplatna odpoved");
     }
 

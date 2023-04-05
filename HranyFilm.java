@@ -7,7 +7,6 @@ public class HranyFilm extends Film {
 
     public boolean setHodnotenie(int hodnotenie) {
         if (hodnotenie >= 1 && hodnotenie <= 5) {
-            super.hodnotenie = hodnotenie;
             return true;
         } else
             return false;
