@@ -51,6 +51,7 @@ public class Databaze {
             System.out.println("Nazov: " + prvkyDatabaze.get(nazov).getNazov() + " Reziser: " + prvkyDatabaze.get(nazov).getReziser() + " Rok: " + prvkyDatabaze.get(nazov).getRok() + " Doporuceny Vek: " + ((AnimovanyFilm) prvkyDatabaze.get(nazov)).getDoporucenyVek());
         }
         ArrayList<Hodnotenie> hodnotenia = this.getHodnotenia(nazov);
+        hodnotenia.sort(Comparator.comparing(Hodnotenie::getHodnotenie).reversed());
         for (Hodnotenie hodnotenie : hodnotenia)
             System.out.println("Hodnotenie: " + hodnotenie.getHodnotenie() + " Komentar: " + hodnotenie.getKomentar());
     }
@@ -76,6 +77,8 @@ public class Databaze {
         }
         hodnotenia.add(new Hodnotenie(hodnotenie, komentar));
         this.prvkyHodnotenia.put(nazov, hodnotenia);
+
+
     }
 
     public ArrayList<Hodnotenie> getHodnotenia(String nazov) {
