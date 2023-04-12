@@ -16,9 +16,7 @@ public class Hodnotenie {
             return komentar;
         }
     }
-    public  int getHodnotenie() {
-        return hodnotenie;
-    }
+    public  int getHodnotenie() {return hodnotenie;}
 
 
 }

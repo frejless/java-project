@@ -1,3 +1,7 @@
+
+import java.util.ArrayList;
+import java.util.List;
+
 interface FilmInterface {
 
     String getNazov();
@@ -6,12 +10,16 @@ interface FilmInterface {
 
     int getRok();
 
+
 }
 
 public class Film implements FilmInterface {
+
     private String nazov;
     private String reziser;
     private int rok;
+
+
 
     public Film(String nazov, String reziser, int rok) {
         this.nazov = nazov;
@@ -33,6 +41,7 @@ public class Film implements FilmInterface {
     public int getRok() {
         return rok;
     }
+
 
 }
 

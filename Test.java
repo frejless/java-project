@@ -12,7 +12,7 @@ public class Test {
         try {
             cislo = sc.nextInt();
         } catch (Exception e) {
-            System.out.println("zadajte prosim cele cislo ");
+            System.out.println("zadajte prosim cislo ");
             sc.nextLine();
             cislo = pouzeCelaCisla(sc);
         }
@@ -21,10 +21,8 @@ public class Test {
 
 
 
+
     public static void main(String[] args) {
-
-
-        String nazov;
 
         int volba;
         boolean run = true;
@@ -35,6 +33,7 @@ public class Test {
             System.out.println("2 .. pridat hodnotenie");
             System.out.println("3 .. informacie o filme");
             System.out.println("4 .. odstranenie filmu");
+            System.out.println("5 .. herci v filmoch");
             System.out.println("8 .. vypis vsetkych filmov");
             System.out.println("9 .. koniec programu");
 
@@ -50,13 +49,17 @@ public class Test {
                     break;
 
                 case 3 :
-                    System.out.println("Zadajte nazov filmu :");
-                    nazov = sc2.nextLine();
-                    mojeDatabaze.FilmInfo(nazov);
+                    getFilmInfo();
                     break;
 
                 case 4 :
                     deleteFilm();
+                    break;
+
+                case 5 :
+                    System.out.println("Zadajte nazov filmu :");
+                    String nazov = sc2.nextLine();
+                    mojeDatabaze.getActors(nazov);
                     break;
 
                 case 8 :
@@ -80,6 +83,14 @@ public class Test {
                 String reziser = sc2.nextLine();
                 System.out.println("Zadajte rok filmu :");
                 int rok = pouzeCelaCisla(sc1);
+                while (true) {
+                    System.out.println("Zadajte meno herca alebo 'koniec' pre ukončenie: ");
+                    String herec = sc2.nextLine();
+                    if (herec.equals("koniec")) {
+                        break;
+                    } else
+                        mojeDatabaze.addActor(nazov, herec);
+                }
                 mojeDatabaze.setHranyFilm(nazov, reziser, rok);
                 break;
             }
@@ -92,6 +103,14 @@ public class Test {
                 int rok = pouzeCelaCisla(sc1);
                 System.out.println("Zadajte doporuceny vek divaka :");
                 int doporucenyVek = pouzeCelaCisla(sc1);
+                while (true) {
+                    System.out.println("Zadajte meno herca alebo 'koniec' pre ukončenie: ");
+                    String herec = sc2.nextLine();
+                    if (herec.equals("koniec")) {
+                        break;
+                    } else
+                        mojeDatabaze.addActor(nazov, herec);
+                }
                 mojeDatabaze.setAnimovanyFilm(nazov, reziser, rok, doporucenyVek);
                 break;
             }
@@ -139,4 +158,13 @@ public class Test {
         String nazov = sc2.nextLine();
         mojeDatabaze.vymazFilm(nazov);
     }
+
+    static void getFilmInfo() {
+        System.out.println("Zadajte nazov filmu :");
+        String nazov = sc2.nextLine();
+        mojeDatabaze.FilmInfo(nazov);
+    }
+
+
+
 }

@@ -5,6 +5,8 @@ public class Databaze {
     private Map<String,Film> prvkyDatabaze = new HashMap<>();
     private Map<String, ArrayList<Hodnotenie>> prvkyHodnotenia = new HashMap<>();
 
+    private Map<String, List<String>> movieActors = new HashMap<>();
+
     Databaze() {}
 
     public void setHranyFilm(String nazov, String reziser, int rok) {
@@ -24,9 +26,9 @@ public class Databaze {
     public void vypisDatabaze() {
         prvkyDatabaze.forEach((key, value) -> {
             if (value instanceof AnimovanyFilm)
-                System.out.println("Nazov: " + value.getNazov() + " Reziser: " + value.getReziser() + " Rok: " + value.getRok() + " Doporuceny Vek: " + ((AnimovanyFilm) value).getDoporucenyVek());
+                System.out.println("Nazov: " + value.getNazov() + " Reziser: " + value.getReziser() + " Rok: " + value.getRok() + " Doporuceny Vek: " + ((AnimovanyFilm) value).getDoporucenyVek() + " Herci : " + getActors(value.getNazov()));
             else if (value instanceof HranyFilm)
-                System.out.println("Nazov: " + value.getNazov() + " Reziser: " + value.getReziser() + " Rok: " + value.getRok());
+                System.out.println("Nazov: " + value.getNazov() + " Reziser: " + value.getReziser() + " Rok: " + value.getRok() + " Herci : " + getActors(value.getNazov()));
         });
     }
 
@@ -45,10 +47,10 @@ public class Databaze {
 
     public void FilmInfo(String nazov) {
         if (prvkyDatabaze.get(nazov) instanceof HranyFilm){
-            System.out.println("Nazov: " + prvkyDatabaze.get(nazov).getNazov() + " Reziser: " + prvkyDatabaze.get(nazov).getReziser() + " Rok: " + prvkyDatabaze.get(nazov).getRok());
+            System.out.println("Nazov: " + prvkyDatabaze.get(nazov).getNazov() + " Reziser: " + prvkyDatabaze.get(nazov).getReziser() + " Rok: " + prvkyDatabaze.get(nazov).getRok() + " Herci : " + getActors(nazov));
         }
         else if (prvkyDatabaze.get(nazov) instanceof AnimovanyFilm){
-            System.out.println("Nazov: " + prvkyDatabaze.get(nazov).getNazov() + " Reziser: " + prvkyDatabaze.get(nazov).getReziser() + " Rok: " + prvkyDatabaze.get(nazov).getRok() + " Doporuceny Vek: " + ((AnimovanyFilm) prvkyDatabaze.get(nazov)).getDoporucenyVek());
+            System.out.println("Nazov: " + prvkyDatabaze.get(nazov).getNazov() + " Reziser: " + prvkyDatabaze.get(nazov).getReziser() + " Rok: " + prvkyDatabaze.get(nazov).getRok() + " Doporuceny Vek: " + ((AnimovanyFilm) prvkyDatabaze.get(nazov)).getDoporucenyVek() + " Herci : " + getActors(nazov));
         }
         ArrayList<Hodnotenie> hodnotenia = this.getHodnotenia(nazov);
         hodnotenia.sort(Comparator.comparing(Hodnotenie::getHodnotenie).reversed());
@@ -77,12 +79,26 @@ public class Databaze {
         }
         hodnotenia.add(new Hodnotenie(hodnotenie, komentar));
         this.prvkyHodnotenia.put(nazov, hodnotenia);
-
-
     }
 
     public ArrayList<Hodnotenie> getHodnotenia(String nazov) {
         return this.prvkyHodnotenia.get(nazov);
+    }
+
+    public void addActor(String nazov, String actor) {
+        List<String> actors = movieActors.get(nazov);
+        if (actors == null) {
+            actors = new ArrayList<String>();
+        }
+        actors.add(actor);
+        movieActors.put(nazov, actors);
+    }
+
+    public String getActors(String nazov) {
+        if (movieActors.get(nazov) == null)
+            return "nezadani";
+        else
+            return String.join(", ", movieActors.get(nazov));
     }
 
 }
