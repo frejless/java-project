@@ -33,7 +33,7 @@ public class Databaze {
     }
 
     public boolean checkFilmExistence(String nazov) {
-        return prvkyDatabaze.containsKey(nazov);
+        return !prvkyDatabaze.containsKey(nazov);
     }
 
     public boolean setCiselneHodnotenie(String nazov, int hodnotenie) {
@@ -45,7 +45,7 @@ public class Databaze {
             return false;
     }
 
-    public void FilmInfo(String nazov) {
+    public void getFilmInfo(String nazov) {
         if (prvkyDatabaze.get(nazov) instanceof HranyFilm){
             System.out.println("Nazov: " + prvkyDatabaze.get(nazov).getNazov() + " Reziser: " + prvkyDatabaze.get(nazov).getReziser() + " Rok: " + prvkyDatabaze.get(nazov).getRok() + " Herci : " + getActors(nazov));
         }
@@ -120,4 +120,17 @@ public class Databaze {
             }
         }
     }
+
+    public void getFilmsOfActor(String meno) {
+        for (Map.Entry<String, List<String>> entry : movieActors.entrySet()) {
+            String movie = entry.getKey();
+            for (String actor : entry.getValue()) {
+                if (actor.equals(meno)) {
+                    System.out.println("Film: " + movie);
+                }
+            }
+        }
+    }
+
+
 }

@@ -35,6 +35,7 @@ public class Test {
             System.out.println("3 .. informacie o filme");
             System.out.println("4 .. odstranenie filmu");
             System.out.println("5 .. herci vo viacerych filmoch ");
+            System.out.println("6 .. vypis filmov daneho herca");
             System.out.println("8 .. vypis vsetkych filmov");
             System.out.println("9 .. koniec programu");
 
@@ -50,7 +51,7 @@ public class Test {
                     break;
 
                 case 3 :
-                    getFilmInfo();
+                    FilmInfo();
                     break;
 
                 case 4 :
@@ -59,6 +60,10 @@ public class Test {
 
                 case 5 :
                     actorsInMultipleFilms();
+                    break;
+
+                case 6 :
+                    FilmsOfActor();
                     break;
 
                 case 8 :
@@ -122,7 +127,7 @@ public class Test {
         String nazov = sc2.nextLine();
         int hodnotenie;
         mojeDatabaze.typFilmu(nazov);
-        if (!mojeDatabaze.checkFilmExistence(nazov)) {
+        if (mojeDatabaze.checkFilmExistence(nazov)) {
             System.out.println("Film neexistuje");
             return;
         }
@@ -156,27 +161,32 @@ public class Test {
     static void deleteFilm() {
         System.out.println("Zadajte nazov filmu :");
         String nazov = sc2.nextLine();
-        if (!mojeDatabaze.checkFilmExistence(nazov)) {
+        if (mojeDatabaze.checkFilmExistence(nazov)) {
             System.out.println("Film neexistuje");
             return;
         }
         mojeDatabaze.vymazFilm(nazov);
     }
 
-    static void getFilmInfo() {
+    static void FilmInfo() {
         System.out.println("Zadajte nazov filmu :");
         String nazov = sc2.nextLine();
-        if (!mojeDatabaze.checkFilmExistence(nazov)) {
+        if (mojeDatabaze.checkFilmExistence(nazov)) {
             System.out.println("Film neexistuje");
             return;
         }
-        mojeDatabaze.FilmInfo(nazov);
+        mojeDatabaze.getFilmInfo(nazov);
     }
 
     static void actorsInMultipleFilms() {
         mojeDatabaze.getActorsInMultipleFilms();
     }
 
+    static void FilmsOfActor() {
+        System.out.println("Zadajte meno herca :");
+        String meno = sc2.nextLine();
+        mojeDatabaze.getFilmsOfActor(meno);
+    }
 
 
 }
