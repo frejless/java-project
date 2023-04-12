@@ -101,4 +101,23 @@ public class Databaze {
             return String.join(", ", movieActors.get(nazov));
     }
 
+    public void getActorsInMultipleFilms() {
+        Map<String, List<String>> actors = new HashMap<>();
+        for (Map.Entry<String, List<String>> entry : movieActors.entrySet()) {
+            String movie = entry.getKey();
+            for (String actor : entry.getValue()) {
+                if (!actors.containsKey(actor)) {
+                    actors.put(actor, new ArrayList<>());
+                }
+                actors.get(actor).add(movie);
+            }
+        }
+        for (Map.Entry<String, List<String>> entry : actors.entrySet()) {
+            String actor = entry.getKey();
+            List<String> movies = entry.getValue();
+            if (movies.size() > 1) {
+                System.out.println(actor + " bol v týchto filmoch: " + String.join(", ", movies));
+            }
+        }
+    }
 }
