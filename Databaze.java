@@ -62,11 +62,17 @@ public class Databaze {
         }
     }
 
-    public void typFilmu (String nazov) {
-        if (prvkyDatabaze.get(nazov) instanceof HranyFilm)
+    public boolean typFilmu (String nazov) {
+        if (prvkyDatabaze.get(nazov) instanceof HranyFilm){
             System.out.println(prvkyDatabaze.get(nazov).getNazov() + " je hrany film, mozete mu dat 1-5 hviezdiciek");
-        else if (prvkyDatabaze.get(nazov) instanceof AnimovanyFilm)
+            return true;
+        }
+        else if (prvkyDatabaze.get(nazov) instanceof AnimovanyFilm) {
             System.out.println(prvkyDatabaze.get(nazov).getNazov() + " je animovany film, mozete mu dat 1-10 bodov");
+            return false;
+        }
+        else
+            return false;
     }
 
     public void vymazFilm(String nazov) {
@@ -137,4 +143,31 @@ public class Databaze {
     }
 
 
+    public void editHranyFilm (String nazov, String novyNazov, String novyReziser, int novyRok) {
+        if(nazov.equals(novyNazov)){
+            prvkyDatabaze.put(nazov, new HranyFilm(novyNazov, novyReziser, novyRok));
+            System.out.println("Film bol upraveny");
+        }
+        else{
+            prvkyDatabaze.put(novyNazov, new HranyFilm(novyNazov, novyReziser, novyRok));
+            prvkyDatabaze.remove(nazov);
+            prvkyHodnotenia.put(novyNazov, prvkyHodnotenia.get(nazov));
+            prvkyHodnotenia.remove(nazov);
+            movieActors.put(novyNazov, movieActors.get(nazov));
+            movieActors.remove(nazov);
+            System.out.println("Film bol upraveny");
+        }
+    }
+
+    public String getReziser(String nazov) {
+        return prvkyDatabaze.get(nazov).getReziser();
+    }
+
+    public String getNazov(String nazov) {
+        return prvkyDatabaze.get(nazov).getNazov();
+    }
+
+    public int getRok(String nazov) {
+        return prvkyDatabaze.get(nazov).getRok();
+    }
 }

@@ -36,6 +36,7 @@ public class Test {
             System.out.println("4 .. odstranenie filmu");
             System.out.println("5 .. herci vo viacerych filmoch ");
             System.out.println("6 .. vypis filmov daneho herca");
+            System.out.println("7 .. upravit film");
             System.out.println("8 .. vypis vsetkych filmov");
             System.out.println("9 .. koniec programu");
 
@@ -64,6 +65,10 @@ public class Test {
 
                 case 6 :
                     FilmsOfActor();
+                    break;
+
+                case 7 :
+                    editFilm();
                     break;
 
                 case 8 :
@@ -133,12 +138,12 @@ public class Test {
     static void addRating() {
         System.out.println("Zadajte nazov filmu :");
         String nazov = sc2.nextLine();
-        int hodnotenie;
-        mojeDatabaze.typFilmu(nazov);
         if (mojeDatabaze.checkFilmExistence(nazov)) {
             System.out.println("Film neexistuje");
             return;
         }
+        int hodnotenie;
+        mojeDatabaze.typFilmu(nazov);
         System.out.println("Zadajte hodnotenie filmu :");
         while(true) {
             hodnotenie = pouzeCelaCisla(sc1);
@@ -194,6 +199,63 @@ public class Test {
         System.out.println("Zadajte meno herca :");
         String meno = sc2.nextLine();
         mojeDatabaze.getFilmsOfActor(meno);
+    }
+
+    static void editFilm() {
+        System.out.println("Zadajte nazov filmu :");
+        String nazov = sc2.nextLine();
+        if (mojeDatabaze.checkFilmExistence(nazov)) {
+            System.out.println("Film neexistuje");
+            return;
+        }
+        String novyNazov;
+        String novyReziser;
+        int novyRok;
+        if (mojeDatabaze.typFilmu(nazov) == true){
+            System.out.println("Chcete zmenit nazov filmu ? (y/n)");
+            while(true) {
+                String odpoved = sc2.nextLine();
+                if (odpoved.equals("y")) {
+                    System.out.println("Zadajte novy nazov filmu :");
+                    novyNazov = sc2.nextLine();
+                    break;
+                } else if (odpoved.equals("n")) {
+                    novyNazov = mojeDatabaze.getNazov(nazov);
+                    break;
+                } else
+                    System.out.println("Neplatna odpoved, zadajte y/n");
+            }
+            System.out.println("Chcete zmenit rezisera filmu ? (y/n)");
+            while(true) {
+                String odpoved = sc2.nextLine();
+                if (odpoved.equals("y")) {
+                    System.out.println("Zadajte novy rezisera filmu :");
+                    novyReziser = sc2.nextLine();
+                    break;
+                } else if (odpoved.equals("n")) {
+                    novyReziser = mojeDatabaze.getReziser(nazov);
+                    break;
+                } else
+                    System.out.println("Neplatna odpoved, zadajte y/n");
+            }
+            System.out.println("Chcete zmenit rok filmu ? (y/n)");
+            while(true) {
+                String odpoved = sc2.nextLine();
+                if (odpoved.equals("y")) {
+                    System.out.println("Zadajte novy rok filmu :");
+                    novyRok = pouzeCelaCisla(sc1);
+                    break;
+                } else if (odpoved.equals("n")) {
+                    novyRok = mojeDatabaze.getRok(nazov);
+                    break;
+                } else
+                    System.out.println("Neplatna odpoved, zadajte y/n");
+            }
+            mojeDatabaze.editHranyFilm(nazov, novyNazov, novyReziser, novyRok);
+        }
+        else {
+        }
+
     }
 
 
