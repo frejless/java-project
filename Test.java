@@ -218,7 +218,7 @@ public class Test {
                 if (odpoved.equals("y")) {
                     System.out.println("Zadajte novy nazov filmu :");
                     novyNazov = sc2.nextLine();
-                    if (mojeDatabaze.checkFilmExistence(nazov) == false) {
+                    if (mojeDatabaze.checkFilmExistence(novyNazov) == false) {
                         System.out.println("Film s takymto nazvom uz existuje");
                         return;
                     }
