@@ -218,6 +218,10 @@ public class Test {
                 if (odpoved.equals("y")) {
                     System.out.println("Zadajte novy nazov filmu :");
                     novyNazov = sc2.nextLine();
+                    if (mojeDatabaze.checkFilmExistence(nazov) == false) {
+                        System.out.println("Film s takymto nazvom uz existuje");
+                        return;
+                    }
                     break;
                 } else if (odpoved.equals("n")) {
                     novyNazov = mojeDatabaze.getNazov(nazov);
