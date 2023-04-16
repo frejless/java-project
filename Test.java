@@ -84,6 +84,10 @@ public class Test {
             if (volba == 1){
                 System.out.println("Zadajte nazov filmu :");
                 String nazov = sc2.nextLine();
+                if (mojeDatabaze.checkFilmExistence(nazov) == false) {
+                    System.out.println("Film uz je v databaze, mozete ho upravit");
+                    return;
+                }
                 System.out.println("Zadajte rezisera filmu :");
                 String reziser = sc2.nextLine();
                 System.out.println("Zadajte rok filmu :");
@@ -102,6 +106,10 @@ public class Test {
             else if (volba == 2)
                 {System.out.println("Zadajte nazov filmu :");
                 String nazov = sc2.nextLine();
+                if (mojeDatabaze.checkFilmExistence(nazov) == false) {
+                    System.out.println("Film uz je v databaze, mozete ho upravit");
+                    return;
+                }
                 System.out.println("Zadajte rezisera filmu :");
                 String reziser = sc2.nextLine();
                 System.out.println("Zadajte rok filmu :");

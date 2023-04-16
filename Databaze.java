@@ -70,10 +70,10 @@ public class Databaze {
     }
 
     public void vymazFilm(String nazov) {
-        if (prvkyDatabaze.remove(nazov) != null)
-            System.out.println("Film bol vymazany");
-        else
-            System.out.println("Film sa nepodarilo vymazat");
+        prvkyDatabaze.remove(nazov);
+        prvkyHodnotenia.remove(nazov);
+        movieActors.remove(nazov);
+        System.out.println("film bol vymazany");
     }
 
     public void addHodnotenie(String nazov, int hodnotenie, String komentar) {
