@@ -170,4 +170,24 @@ public class Databaze {
     public int getRok(String nazov) {
         return prvkyDatabaze.get(nazov).getRok();
     }
+
+    public int getVek(String nazov) {
+        return ((AnimovanyFilm) prvkyDatabaze.get(nazov)).getDoporucenyVek();
+    }
+
+    public void editAnimovanyFilm(String nazov, String novyNazov, String novyReziser, int novyRok, int novyVek) {
+        if(nazov.equals(novyNazov)){
+            prvkyDatabaze.put(nazov, new AnimovanyFilm(novyNazov, novyReziser, novyRok, novyVek));
+            System.out.println("Film bol upraveny");
+        }
+        else {
+            prvkyDatabaze.put(novyNazov, new AnimovanyFilm(novyNazov, novyReziser, novyRok, novyVek));
+            prvkyDatabaze.remove(nazov);
+            prvkyHodnotenia.put(novyNazov, prvkyHodnotenia.get(nazov));
+            prvkyHodnotenia.remove(nazov);
+            movieActors.put(novyNazov, movieActors.get(nazov));
+            movieActors.remove(nazov);
+            System.out.println("Film bol upraveny");
+        }
+    }
 }

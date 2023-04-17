@@ -211,6 +211,7 @@ public class Test {
         String novyNazov;
         String novyReziser;
         int novyRok;
+        int novyVek;
         if (mojeDatabaze.typFilmu(nazov) == true){
             System.out.println("Chcete zmenit nazov filmu ? (y/n)");
             while(true) {
@@ -258,6 +259,63 @@ public class Test {
             mojeDatabaze.editHranyFilm(nazov, novyNazov, novyReziser, novyRok);
         }
         else {
+            System.out.println("Chcete zmenit nazov filmu ? (y/n)");
+            while(true) {
+                String odpoved = sc2.nextLine();
+                if (odpoved.equals("y")) {
+                    System.out.println("Zadajte novy nazov filmu :");
+                    novyNazov = sc2.nextLine();
+                    if (mojeDatabaze.checkFilmExistence(novyNazov) == false) {
+                        System.out.println("Film s takymto nazvom uz existuje");
+                        return;
+                    }
+                    break;
+                } else if (odpoved.equals("n")) {
+                    novyNazov = mojeDatabaze.getNazov(nazov);
+                    break;
+                } else
+                    System.out.println("Neplatna odpoved, zadajte y/n");
+            }
+            System.out.println("Chcete zmenit rezisera filmu ? (y/n)");
+            while(true) {
+                String odpoved = sc2.nextLine();
+                if (odpoved.equals("y")) {
+                    System.out.println("Zadajte novy rezisera filmu :");
+                    novyReziser = sc2.nextLine();
+                    break;
+                } else if (odpoved.equals("n")) {
+                    novyReziser = mojeDatabaze.getReziser(nazov);
+                    break;
+                } else
+                    System.out.println("Neplatna odpoved, zadajte y/n");
+            }
+            System.out.println("Chcete zmenit rok filmu ? (y/n)");
+            while(true) {
+                String odpoved = sc2.nextLine();
+                if (odpoved.equals("y")) {
+                    System.out.println("Zadajte novy rok filmu :");
+                    novyRok = pouzeCelaCisla(sc1);
+                    break;
+                } else if (odpoved.equals("n")) {
+                    novyRok = mojeDatabaze.getRok(nazov);
+                    break;
+                } else
+                    System.out.println("Neplatna odpoved, zadajte y/n");
+            }
+            System.out.println("Chcete zmenit doporuceny vek filmu ? (y/n)");
+            while(true) {
+                String odpoved = sc2.nextLine();
+                if (odpoved.equals("y")) {
+                    System.out.println("Zadajte novy doporuceny vek filmu :");
+                    novyVek = pouzeCelaCisla(sc1);
+                    break;
+                } else if (odpoved.equals("n")) {
+                    novyVek = mojeDatabaze.getVek(nazov);
+                    break;
+                } else
+                    System.out.println("Neplatna odpoved, zadajte y/n");
+            }
+            mojeDatabaze.editAnimovanyFilm(nazov, novyNazov, novyReziser, novyRok, novyVek);
         }
 
     }
