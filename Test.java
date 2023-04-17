@@ -38,7 +38,8 @@ public class Test {
             System.out.println("6 .. vypis filmov daneho herca");
             System.out.println("7 .. upravit film");
             System.out.println("8 .. vypis vsetkych filmov");
-            System.out.println("9 .. koniec programu");
+            System.out.println("9 .. ulozit film do suboru");
+            System.out.println("11 .. koniec programu");
 
             volba = pouzeCelaCisla(sc1);
 
@@ -76,6 +77,10 @@ public class Test {
                     break;
 
                 case 9 :
+                    FilmToFile();
+                    break;
+
+                case 11 :
                     run = false;
                     break;
             }
@@ -317,7 +322,16 @@ public class Test {
             }
             mojeDatabaze.editAnimovanyFilm(nazov, novyNazov, novyReziser, novyRok, novyVek);
         }
+    }
 
+    static void FilmToFile() {
+        System.out.println("Zadajte nazov filmu :");
+        String nazov = sc2.nextLine();
+        if (mojeDatabaze.checkFilmExistence(nazov)) {
+            System.out.println("Film neexistuje");
+            return;
+        }
+        mojeDatabaze.saveToFile(nazov);
     }
 
 

@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class Databaze {
@@ -190,4 +193,48 @@ public class Databaze {
             System.out.println("Film bol upraveny");
         }
     }
+
+    public void saveToFile(String nazov) {
+        if (prvkyDatabaze.get(nazov) instanceof HranyFilm) {
+            try {
+                FileWriter fw = new FileWriter(nazov + ".txt");
+                fw.write("Nazov: " + prvkyDatabaze.get(nazov).getNazov() + " Reziser: " + prvkyDatabaze.get(nazov).getReziser() + " Rok: " + prvkyDatabaze.get(nazov).getRok() + " Herci : " + getActors(nazov));
+                hodnotenieForSavingToFile(nazov, fw);
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else if (prvkyDatabaze.get(nazov) instanceof AnimovanyFilm) {
+            try {
+                FileWriter fw = new FileWriter(nazov + ".txt");
+                fw.write("Nazov: " + prvkyDatabaze.get(nazov).getNazov() + " Reziser: " + prvkyDatabaze.get(nazov).getReziser() + " Rok: " + prvkyDatabaze.get(nazov).getRok() + " Doporuceny Vek: " + ((AnimovanyFilm) prvkyDatabaze.get(nazov)).getDoporucenyVek() + " Herci : " + getActors(nazov));
+                hodnotenieForSavingToFile(nazov, fw);
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else
+            System.out.println("Nepodarilo sa ulozit film");
+    }
+
+    private void hodnotenieForSavingToFile(String nazov, FileWriter fw) throws IOException {
+        ArrayList<Hodnotenie> hodnotenia = this.getHodnotenia(nazov);
+        BufferedWriter bw = new BufferedWriter(fw);
+        if (hodnotenia == null || hodnotenia.size() == 0){
+            bw.newLine();
+            bw.write("Film este nemal ziadne hodnotenia");
+        }
+        else {
+            hodnotenia.sort(Comparator.comparing(Hodnotenie::getHodnotenie).reversed());
+            for (Hodnotenie hodnotenie : hodnotenia) {
+                bw.newLine();
+                bw.write("Hodnotenie: " + hodnotenie.getHodnotenie() + " Komentar: " + hodnotenie.getKomentar());
+            }
+        }
+        bw.close();
+    }
+
+
 }
