@@ -253,6 +253,11 @@ public class Databaze {
 
             }
             prvkyDatabaze.put(nazov, film);
+            String actors = line.substring(line.indexOf("Herci : ") + 8);
+            String[] actorsArray = actors.split(", ");
+            for (String actor : actorsArray) {
+                addActor(nazov, actor);
+            }
             while ((line = br.readLine()) != null) {
                 if (line.startsWith("Hodnotenie: ")) {
                     int rating = Integer.parseInt(line.substring(line.indexOf("Hodnotenie: ") + 12, line.indexOf(" Komentar: ")));
