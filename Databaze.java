@@ -261,7 +261,8 @@ public class Databaze {
                 }
             }
             br.close();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             System.out.println("nepodarilo sa nacitat film");
         }
     }
