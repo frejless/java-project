@@ -39,6 +39,7 @@ public class Test {
             System.out.println("7 .. herci vo viacerych filmoch");
             System.out.println("8 .. vyhladat filmy herca");
             System.out.println("9 .. ulozit film do suboru");
+            System.out.println("10 .. nacitat film zo suboru");
             System.out.println("11 .. koniec programu");
 
             volba = pouzeCelaCisla(sc1);
@@ -53,6 +54,7 @@ public class Test {
                 case 7 -> actorsInMultipleFilms();
                 case 8 -> FilmsOfActor();
                 case 9 -> FilmToFile();
+                case 10 -> FilmFromFile();
                 case 11 -> run = false;
             }
         }
@@ -307,6 +309,12 @@ public class Test {
             return;
         }
         mojeDatabaze.saveToFile(nazov);
+    }
+
+    static void FilmFromFile(){
+        System.out.println("Zadajte nazov filmu :");
+        String nazov = sc2.nextLine();
+        mojeDatabaze.loadFromFile(nazov);
     }
 
 
