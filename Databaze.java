@@ -240,17 +240,25 @@ public class Databaze {
             String line = br.readLine();
             String name = line.substring(line.indexOf("Nazov: ") + 7, line.indexOf(" Reziser: "));
             String director = line.substring(line.indexOf("Reziser: ") + 9, line.indexOf(" Rok: "));
-            //String actors = line.substring(line.indexOf("Herci : ") + 7);
+            Film film;
             if (line.contains("Doporuceny Vek")) {
                 int year = Integer.parseInt(line.substring(line.indexOf("Rok: ") + 5, line.indexOf(" Doporuceny Vek: ")));
                 int recommendedAge = Integer.parseInt(line.substring(line.indexOf("Doporuceny Vek: ") + 16, line.indexOf(" Herci : ")));
-                AnimovanyFilm film = new AnimovanyFilm(name, director, year, recommendedAge);
-                prvkyDatabaze.put(nazov, film);
+                film = new AnimovanyFilm(name, director, year, recommendedAge);
+
             }
             else {
                 int year = Integer.parseInt(line.substring(line.indexOf("Rok: ") + 5, line.indexOf(" Herci : ")));
-                HranyFilm film = new HranyFilm(name, director, year);
-                prvkyDatabaze.put(nazov, film);
+                film = new HranyFilm(name, director, year);
+
+            }
+            prvkyDatabaze.put(nazov, film);
+            while ((line = br.readLine()) != null) {
+                if (line.startsWith("Hodnotenie: ")) {
+                    int rating = Integer.parseInt(line.substring(line.indexOf("Hodnotenie: ") + 12, line.indexOf(" Komentar: ")));
+                    String comment = line.substring(line.indexOf("Komentar: ") + 10);
+                    addHodnotenie(nazov, rating, comment);
+                }
             }
             br.close();
         } catch (IOException e) {
