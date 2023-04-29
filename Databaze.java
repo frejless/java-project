@@ -273,4 +273,9 @@ public class Databaze {
     }
 
 
+    public void deleteActors(String nazov) {
+        movieActors.remove(nazov);
+    }
+
+
 }

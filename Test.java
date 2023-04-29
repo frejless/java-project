@@ -86,8 +86,8 @@ public class Test {
                 mojeDatabaze.setHranyFilm(nazov, reziser, rok);
                 break;
             }
-            else if (volba == 2)
-                {System.out.println("Zadajte nazov filmu :");
+            else if (volba == 2) {
+                System.out.println("Zadajte nazov filmu :");
                 String nazov = sc2.nextLine();
                 if (!mojeDatabaze.checkFilmExistence(nazov)) {
                     System.out.println("Film uz je v databaze, mozete ho upravit");
@@ -238,7 +238,54 @@ public class Test {
                 } else
                     System.out.println("Neplatna odpoved, zadajte y/n");
             }
+
+
+
+
+            System.out.println("Chcete zmenit zoznam hercov ? (y/n)");
+            while(true) {
+                String odpoved = sc2.nextLine();
+                if (odpoved.equals("y")) {
+                    while (true) {
+                        System.out.println("1 .. pridat k aktualnemu zoznamu\n2 .. novy zoznam");
+                        int odpoved2 = pouzeCelaCisla(sc1);
+                        if (odpoved2 == 1) {
+                            while (true) {
+                                System.out.println("Zadajte meno herca alebo 'koniec' pre ukončenie: ");
+                                String herec = sc2.nextLine();
+                                if (herec.equals("koniec")) {
+                                    break;
+                                } else
+                                    mojeDatabaze.addActor(nazov, herec);
+                            }
+                            break;
+                        }
+                        else if (odpoved2 == 2) {
+                            mojeDatabaze.deleteActors(nazov);
+                            while (true) {
+                                System.out.println("Zadajte meno herca alebo 'koniec' pre ukončenie: ");
+                                String herec = sc2.nextLine();
+                                if (herec.equals("koniec")) {
+                                    break;
+                                } else
+                                    mojeDatabaze.addActor(nazov, herec);
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
+                else if (odpoved.equals("n")) {
+                    break;
+                } else
+                    System.out.println("Neplatna odpoved, zadajte y/n");
+            }
+
+
+
+
             mojeDatabaze.editHranyFilm(nazov, novyNazov, novyReziser, novyRok);
+
         }
         else {
             System.out.println("Chcete zmenit nazov filmu ? (y/n)");
@@ -297,6 +344,53 @@ public class Test {
                 } else
                     System.out.println("Neplatna odpoved, zadajte y/n");
             }
+
+
+
+
+            System.out.println("Chcete zmenit zoznam animatorov ? (y/n)");
+            while(true) {
+                String odpoved = sc2.nextLine();
+                if (odpoved.equals("y")) {
+                    while (true) {
+                        System.out.println("1 .. pridat k aktualnemu zoznamu\n2 .. novy zoznam");
+                        int odpoved2 = pouzeCelaCisla(sc1);
+                        if (odpoved2 == 1) {
+                            while (true) {
+                                System.out.println("Zadajte meno herca alebo 'koniec' pre ukončenie: ");
+                                String herec = sc2.nextLine();
+                                if (herec.equals("koniec")) {
+                                    break;
+                                } else
+                                    mojeDatabaze.addActor(nazov, herec);
+                            }
+                            break;
+                        }
+                        else if (odpoved2 == 2) {
+                            mojeDatabaze.deleteActors(nazov);
+                            while (true) {
+                                System.out.println("Zadajte meno animatora alebo 'koniec' pre ukončenie: ");
+                                String herec = sc2.nextLine();
+                                if (herec.equals("koniec")) {
+                                    break;
+                                } else
+                                    mojeDatabaze.addActor(nazov, herec);
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
+                else if (odpoved.equals("n")) {
+                    break;
+                } else
+                    System.out.println("Neplatna odpoved, zadajte y/n");
+            }
+
+
+
+
+
             mojeDatabaze.editAnimovanyFilm(nazov, novyNazov, novyReziser, novyRok, novyVek);
         }
     }
