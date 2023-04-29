@@ -6,10 +6,7 @@ public class HranyFilm extends Film {
     }
 
     public boolean sanitizeHodnotenie(int hodnotenie) {
-        if (hodnotenie >= 1 && hodnotenie <= 5) {
-            return true;
-        } else
-            return false;
+        return hodnotenie >= 1 && hodnotenie <= 5;
     }
 
 

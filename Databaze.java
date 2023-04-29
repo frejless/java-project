@@ -67,16 +67,15 @@ public class Databaze {
 
     public boolean typFilmu (String nazov) {
         if (prvkyDatabaze.get(nazov) instanceof HranyFilm){
-            System.out.println(prvkyDatabaze.get(nazov).getNazov() + " je hrany film, mozete mu dat 1-5 hviezdiciek");
             return true;
         }
         else if (prvkyDatabaze.get(nazov) instanceof AnimovanyFilm) {
-            System.out.println(prvkyDatabaze.get(nazov).getNazov() + " je animovany film, mozete mu dat 1-10 bodov");
             return false;
         }
         else
             return false;
     }
+
 
     public void vymazFilm(String nazov) {
         prvkyDatabaze.remove(nazov);

@@ -12,9 +12,6 @@ public class AnimovanyFilm extends Film {
     }
 
     public boolean sanitizeHodnotenie(int hodnotenie) {
-        if (hodnotenie >= 1 && hodnotenie <= 10) {
-            return true;
-        } else
-            return false;
+        return hodnotenie >= 1 && hodnotenie <= 10;
     }
 }

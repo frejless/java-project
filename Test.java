@@ -31,58 +31,29 @@ public class Test {
 
             System.out.println("Vyberte pozadovanu cinnost:");
             System.out.println("1 .. pridat novy film");
-            System.out.println("2 .. pridat hodnotenie");
-            System.out.println("3 .. informacie o filme");
-            System.out.println("4 .. odstranenie filmu");
-            System.out.println("5 .. herci vo viacerych filmoch ");
-            System.out.println("6 .. vypis filmov daneho herca");
-            System.out.println("7 .. upravit film");
-            System.out.println("8 .. vypis vsetkych filmov");
+            System.out.println("2 .. upravit film");
+            System.out.println("3 .. zmazat film");
+            System.out.println("4 .. pridat hodnotenie");
+            System.out.println("5 .. vypis filmov");
+            System.out.println("6 .. vyhladat film");
+            System.out.println("7 .. herci vo viacerych filmoch");
+            System.out.println("8 .. vyhladat filmy herca");
             System.out.println("9 .. ulozit film do suboru");
             System.out.println("11 .. koniec programu");
 
             volba = pouzeCelaCisla(sc1);
 
             switch (volba) {
-                case 1 :
-                    addFilm();
-                    break;
-
-                case 2 :
-                    addRating();
-                    break;
-
-                case 3 :
-                    FilmInfo();
-                    break;
-
-                case 4 :
-                    deleteFilm();
-                    break;
-
-                case 5 :
-                    actorsInMultipleFilms();
-                    break;
-
-                case 6 :
-                    FilmsOfActor();
-                    break;
-
-                case 7 :
-                    editFilm();
-                    break;
-
-                case 8 :
-                    mojeDatabaze.vypisDatabaze();
-                    break;
-
-                case 9 :
-                    FilmToFile();
-                    break;
-
-                case 11 :
-                    run = false;
-                    break;
+                case 1 -> addFilm();
+                case 2 -> editFilm();
+                case 3 -> deleteFilm();
+                case 4 -> addRating();
+                case 5 -> mojeDatabaze.vypisDatabaze();
+                case 6 -> FilmInfo();
+                case 7 -> actorsInMultipleFilms();
+                case 8 -> FilmsOfActor();
+                case 9 -> FilmToFile();
+                case 11 -> run = false;
             }
         }
     }
@@ -94,7 +65,7 @@ public class Test {
             if (volba == 1){
                 System.out.println("Zadajte nazov filmu :");
                 String nazov = sc2.nextLine();
-                if (mojeDatabaze.checkFilmExistence(nazov) == false) {
+                if (!mojeDatabaze.checkFilmExistence(nazov)) {
                     System.out.println("Film uz je v databaze, mozete ho upravit");
                     return;
                 }
@@ -116,7 +87,7 @@ public class Test {
             else if (volba == 2)
                 {System.out.println("Zadajte nazov filmu :");
                 String nazov = sc2.nextLine();
-                if (mojeDatabaze.checkFilmExistence(nazov) == false) {
+                if (!mojeDatabaze.checkFilmExistence(nazov)) {
                     System.out.println("Film uz je v databaze, mozete ho upravit");
                     return;
                 }
@@ -148,11 +119,15 @@ public class Test {
             return;
         }
         int hodnotenie;
+        if (mojeDatabaze.typFilmu(nazov))
+            System.out.println(nazov + " je hrany film, mozete mu dat 1-5 hviezdiciek");
+        else
+            System.out.println(nazov + " je animovany film, mozete mu dat 1-10 bodov");
         mojeDatabaze.typFilmu(nazov);
         System.out.println("Zadajte hodnotenie filmu :");
         while(true) {
             hodnotenie = pouzeCelaCisla(sc1);
-            if (mojeDatabaze.setCiselneHodnotenie(nazov, hodnotenie) == true) {
+            if (mojeDatabaze.setCiselneHodnotenie(nazov, hodnotenie)) {
                 System.out.println("Hodnotenie filmu bolo nastavene");
                 break;
             }
@@ -217,14 +192,14 @@ public class Test {
         String novyReziser;
         int novyRok;
         int novyVek;
-        if (mojeDatabaze.typFilmu(nazov) == true){
+        if (mojeDatabaze.typFilmu(nazov)){
             System.out.println("Chcete zmenit nazov filmu ? (y/n)");
             while(true) {
                 String odpoved = sc2.nextLine();
                 if (odpoved.equals("y")) {
                     System.out.println("Zadajte novy nazov filmu :");
                     novyNazov = sc2.nextLine();
-                    if (mojeDatabaze.checkFilmExistence(novyNazov) == false) {
+                    if (!mojeDatabaze.checkFilmExistence(novyNazov)) {
                         System.out.println("Film s takymto nazvom uz existuje");
                         return;
                     }
@@ -270,7 +245,7 @@ public class Test {
                 if (odpoved.equals("y")) {
                     System.out.println("Zadajte novy nazov filmu :");
                     novyNazov = sc2.nextLine();
-                    if (mojeDatabaze.checkFilmExistence(novyNazov) == false) {
+                    if (!mojeDatabaze.checkFilmExistence(novyNazov)) {
                         System.out.println("Film s takymto nazvom uz existuje");
                         return;
                     }
