@@ -1,4 +1,5 @@
 import java.io.*;
+import java.sql.*;
 import java.util.*;
 
 public class Databaze {
@@ -275,6 +276,97 @@ public class Databaze {
 
     public void deleteActors(String nazov) {
         movieActors.remove(nazov);
+    }
+
+
+
+
+    public Connection connectToDatabase(String s) {
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:" + s);
+            return connection;
+        }
+        catch (Exception e) {
+            System.out.println("Nepodarilo sa pripojit k databaze");
+            return null;
+        }
+    }
+
+    public void createTable(Connection conn) {
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS movies (name TEXT, director TEXT, year INTEGER, recommendedAge INTEGER)");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS actors (name TEXT, movie TEXT)");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS ratings (movie TEXT, rating INTEGER, comment TEXT)");
+        }
+        catch (Exception e) {
+            System.out.println("Nepodarilo sa vytvorit tabulku");
+        }
+    }
+
+    public void saveDatabase(Connection conn) {
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("DELETE FROM movies");
+            statement.executeUpdate("DELETE FROM actors");
+            statement.executeUpdate("DELETE FROM ratings");
+            for (Film film : prvkyDatabaze.values()) {
+                if (film instanceof HranyFilm) {
+                    statement.executeUpdate("INSERT INTO movies (name, director, year) VALUES ('" + film.getNazov() + "', '" + film.getReziser() + "', " + film.getRok() + ")");
+                }
+                else {
+                    statement.executeUpdate("INSERT INTO movies (name, director, year, recommendedAge) VALUES ('" + film.getNazov() + "', '" + film.getReziser() + "', " + film.getRok() + ", " + ((AnimovanyFilm) film).getDoporucenyVek() + ")");
+                }
+                for (String actor : movieActors.get(film.getNazov())) {
+                    statement.executeUpdate("INSERT INTO actors (name, movie) VALUES ('" + actor + "', '" + film.getNazov() + "')");
+                }
+                for (Hodnotenie hodnotenie : prvkyHodnotenia.get(film.getNazov())) {
+                    statement.executeUpdate("INSERT INTO ratings (movie, rating, comment) VALUES ('" + film.getNazov() + "', " + hodnotenie.getHodnotenie() + ", '" + hodnotenie.getKomentar() + "')");
+                }
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Nepodarilo sa ulozit databazu");
+        }
+    }
+
+
+    public void loadDatabase(Connection conn) {
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM movies");
+            while (rs.next()) {
+                String name = rs.getString("name");
+                String director = rs.getString("director");
+                int year = rs.getInt("year");
+                int recommendedAge = rs.getInt("recommendedAge");
+                Film film;
+                if (recommendedAge == 0) {
+                    film = new HranyFilm(name, director, year);
+                }
+                else {
+                    film = new AnimovanyFilm(name, director, year, recommendedAge);
+                }
+                prvkyDatabaze.put(name, film);
+            }
+            rs = statement.executeQuery("SELECT * FROM actors");
+            while (rs.next()) {
+                String name = rs.getString("name");
+                String movie = rs.getString("movie");
+                addActor(movie, name);
+            }
+            rs = statement.executeQuery("SELECT * FROM ratings");
+            while (rs.next()) {
+                String movie = rs.getString("movie");
+                int rating = rs.getInt("rating");
+                String comment = rs.getString("comment");
+                addHodnotenie(movie, rating, comment);
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Nepodarilo sa nacitat databazu");
+        }
     }
 
 

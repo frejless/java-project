@@ -1,4 +1,10 @@
+
+import java.sql.Connection;
 import java.util.Scanner;
+
+
+
+
 
 public class Test {
 
@@ -24,6 +30,8 @@ public class Test {
 
     public static void main(String[] args) {
 
+        Connection conn = mojeDatabaze.connectToDatabase("filmy.db");
+
         int volba;
         boolean run = true;
 
@@ -41,8 +49,12 @@ public class Test {
             System.out.println("9 .. ulozit film do suboru");
             System.out.println("10 .. nacitat film zo suboru");
             System.out.println("11 .. koniec programu");
+            System.out.println("12 .. nacitat databazu z disku");
+            System.out.println("13 .. vytvorit databazu na disku");
 
             volba = pouzeCelaCisla(sc1);
+
+
 
             switch (volba) {
                 case 1 -> addFilm();
@@ -56,9 +68,16 @@ public class Test {
                 case 9 -> FilmToFile();
                 case 10 -> FilmFromFile();
                 case 11 -> run = false;
+                case 12 -> mojeDatabaze.loadDatabase(conn);
+                case 13 -> {
+                    mojeDatabaze.createTable(conn);
+                    mojeDatabaze.saveDatabase(conn);
+                }
+
             }
         }
     }
+
 
     static void addFilm() {
         while (true) {
