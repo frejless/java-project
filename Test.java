@@ -4,6 +4,7 @@ public class Test {
     static Databaze mojeDatabaze=new Databaze();
     static Scanner sc1 = new Scanner(System.in);
     static Scanner sc2 = new Scanner(System.in);
+
     public static int pouzeCelaCisla(Scanner sc) {
         int cislo;
         try {
@@ -16,20 +17,47 @@ public class Test {
         return cislo;
     }
 
+    public static int overenieVeku(Scanner sc) {
+        int vek;
+        try {
+            vek = sc.nextInt();
+            if (vek <= 0 || vek >= 100) {
+                System.out.println("zadajte prosim platne cislo (1-99)");
+                vek = overenieVeku(sc);
+            }
+        } catch (Exception e) {
+            System.out.println("zadajte prosim cislo");
+            sc.nextLine();
+            vek = overenieVeku(sc);
+        }
+        return vek;
+    }
+
+    public static int overenieRoku(Scanner sc) {
+        int vek;
+        try {
+            vek = sc.nextInt();
+            if (vek < 1885 || vek > 2023) {
+                System.out.println("zadajte prosim platny rok (1885-2023)");
+                vek = overenieRoku(sc);
+            }
+        } catch (Exception e) {
+            System.out.println("zadajte prosim cislo");
+            sc.nextLine();
+            vek = overenieRoku(sc);
+        }
+        return vek;
+    }
 
 
 
     public static void main(String[] args) {
-
         Connection conn = mojeDatabaze.connectToDatabase("filmy.db");
         mojeDatabaze.loadDatabase(conn);
-
-
         int volba;
         boolean run = true;
 
         while(run) {
-
             System.out.println("Vyberte pozadovanu cinnost:");
             System.out.println("1 .. pridat novy film");
             System.out.println("2 .. upravit film");
@@ -43,10 +71,7 @@ public class Test {
             System.out.println("10 .. nacitat film zo suboru");
             System.out.println("11 .. koniec programu");
 
-
             volba = pouzeCelaCisla(sc1);
-
-
 
             switch (volba) {
                 case 1 -> addFilm();
@@ -82,7 +107,7 @@ public class Test {
                 System.out.println("Zadajte rezisera filmu :");
                 String reziser = sc2.nextLine();
                 System.out.println("Zadajte rok filmu :");
-                int rok = pouzeCelaCisla(sc1);
+                int rok = overenieRoku(sc1);
                 while (true) {
                     System.out.println("Zadajte meno herca alebo 'koniec' pre ukončenie: ");
                     String herec = sc2.nextLine();
@@ -104,9 +129,9 @@ public class Test {
                 System.out.println("Zadajte rezisera filmu :");
                 String reziser = sc2.nextLine();
                 System.out.println("Zadajte rok filmu :");
-                int rok = pouzeCelaCisla(sc1);
+                int rok = overenieRoku(sc1);
                 System.out.println("Zadajte doporuceny vek divaka :");
-                int doporucenyVek = pouzeCelaCisla(sc1);
+                int doporucenyVek = overenieVeku(sc1);
                 while (true) {
                     System.out.println("Zadajte meno animatora alebo 'koniec' pre ukončenie: ");
                     String herec = sc2.nextLine();
@@ -232,7 +257,7 @@ public class Test {
                 String odpoved = sc2.nextLine();
                 if (odpoved.equals("y")) {
                     System.out.println("Zadajte novy rok filmu :");
-                    novyRok = pouzeCelaCisla(sc1);
+                    novyRok = overenieRoku(sc1);
                     break;
                 } else if (odpoved.equals("n")) {
                     novyRok = mojeDatabaze.getRok(nazov);
@@ -317,7 +342,7 @@ public class Test {
                 String odpoved = sc2.nextLine();
                 if (odpoved.equals("y")) {
                     System.out.println("Zadajte novy rok filmu :");
-                    novyRok = pouzeCelaCisla(sc1);
+                    novyRok = overenieRoku(sc1);
                     break;
                 } else if (odpoved.equals("n")) {
                     novyRok = mojeDatabaze.getRok(nazov);
@@ -330,7 +355,7 @@ public class Test {
                 String odpoved = sc2.nextLine();
                 if (odpoved.equals("y")) {
                     System.out.println("Zadajte novy doporuceny vek filmu :");
-                    novyVek = pouzeCelaCisla(sc1);
+                    novyVek = overenieVeku(sc1);
                     break;
                 } else if (odpoved.equals("n")) {
                     novyVek = mojeDatabaze.getVek(nazov);
@@ -393,6 +418,4 @@ public class Test {
         String nazov = sc2.nextLine();
         mojeDatabaze.loadFromFile(nazov);
     }
-
-
 }

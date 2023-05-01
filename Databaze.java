@@ -6,7 +6,6 @@ public class Databaze {
 
     private Map<String,Film> prvkyDatabaze = new HashMap<>();
     private Map<String, ArrayList<Hodnotenie>> prvkyHodnotenia = new HashMap<>();
-
     private Map<String, List<String>> movieActors = new HashMap<>();
 
     Databaze() {}
@@ -17,14 +16,12 @@ public class Databaze {
         else
             System.out.println("Film sa nepodarilo pridat");
     }
-
     public void setAnimovanyFilm(String nazov, String reziser, int rok, int doporucenyVek) {
         if (prvkyDatabaze.put(nazov, new AnimovanyFilm(nazov, reziser, rok, doporucenyVek)) == null)
             System.out.println("Film bol pridany");
         else
             System.out.println("Film sa nepodarilo pridat");
     }
-
     public void vypisDatabaze() {
         prvkyDatabaze.forEach((key, value) -> {
             if (value instanceof AnimovanyFilm)
@@ -33,11 +30,9 @@ public class Databaze {
                 System.out.println("Nazov: " + value.getNazov() + " Reziser: " + value.getReziser() + " Rok: " + value.getRok() + " Herci : " + getActors(value.getNazov()));
         });
     }
-
     public boolean checkFilmExistence(String nazov) {
         return !prvkyDatabaze.containsKey(nazov);
     }
-
     public boolean setCiselneHodnotenie(String nazov, int hodnotenie) {
         if (prvkyDatabaze.get(nazov) instanceof HranyFilm)
             return ((HranyFilm) prvkyDatabaze.get(nazov)).sanitizeHodnotenie(hodnotenie);
@@ -46,7 +41,6 @@ public class Databaze {
         else
             return false;
     }
-
     public void getFilmInfo(String nazov) {
         if (prvkyDatabaze.get(nazov) instanceof HranyFilm){
             System.out.println("Nazov: " + prvkyDatabaze.get(nazov).getNazov() + " Reziser: " + prvkyDatabaze.get(nazov).getReziser() + " Rok: " + prvkyDatabaze.get(nazov).getRok() + " Herci : " + getActors(nazov));
@@ -63,7 +57,6 @@ public class Databaze {
                 System.out.println("Hodnotenie: " + hodnotenie.getHodnotenie() + " Komentar: " + hodnotenie.getKomentar());
         }
     }
-
     public boolean typFilmu (String nazov) {
         if (prvkyDatabaze.get(nazov) instanceof HranyFilm){
             return true;
@@ -74,15 +67,12 @@ public class Databaze {
         else
             return false;
     }
-
-
     public void vymazFilm(String nazov) {
         prvkyDatabaze.remove(nazov);
         prvkyHodnotenia.remove(nazov);
         movieActors.remove(nazov);
         System.out.println("film bol vymazany");
     }
-
     public void addHodnotenie(String nazov, int hodnotenie, String komentar) {
         ArrayList<Hodnotenie> hodnotenia = this.prvkyHodnotenia.get(nazov);
         if (hodnotenia == null) {
@@ -91,11 +81,9 @@ public class Databaze {
         hodnotenia.add(new Hodnotenie(hodnotenie, komentar));
         this.prvkyHodnotenia.put(nazov, hodnotenia);
     }
-
     public ArrayList<Hodnotenie> getHodnotenia(String nazov) {
         return this.prvkyHodnotenia.get(nazov);
     }
-
     public void addActor(String nazov, String actor) {
         List<String> actors = movieActors.get(nazov);
         if (actors == null) {
@@ -104,14 +92,12 @@ public class Databaze {
         actors.add(actor);
         movieActors.put(nazov, actors);
     }
-
     public String getActors(String nazov) {
         if (movieActors.get(nazov) == null)
             return "nezadani";
         else
             return String.join(", ", movieActors.get(nazov));
     }
-
     public void getActorsInMultipleFilms() {
         Map<String, List<String>> actors = new HashMap<>();
         for (Map.Entry<String, List<String>> entry : movieActors.entrySet()) {
@@ -131,7 +117,6 @@ public class Databaze {
             }
         }
     }
-
     public void getFilmsOfActor(String meno) {
         for (Map.Entry<String, List<String>> entry : movieActors.entrySet()) {
             String movie = entry.getKey();
@@ -142,8 +127,6 @@ public class Databaze {
             }
         }
     }
-
-
     public void editHranyFilm (String nazov, String novyNazov, String novyReziser, int novyRok) {
         if(nazov.equals(novyNazov)){
             prvkyDatabaze.put(nazov, new HranyFilm(novyNazov, novyReziser, novyRok));
@@ -159,23 +142,18 @@ public class Databaze {
             System.out.println("Film bol upraveny");
         }
     }
-
     public String getReziser(String nazov) {
         return prvkyDatabaze.get(nazov).getReziser();
     }
-
     public String getNazov(String nazov) {
         return prvkyDatabaze.get(nazov).getNazov();
     }
-
     public int getRok(String nazov) {
         return prvkyDatabaze.get(nazov).getRok();
     }
-
     public int getVek(String nazov) {
         return ((AnimovanyFilm) prvkyDatabaze.get(nazov)).getDoporucenyVek();
     }
-
     public void editAnimovanyFilm(String nazov, String novyNazov, String novyReziser, int novyRok, int novyVek) {
         if(nazov.equals(novyNazov)){
             prvkyDatabaze.put(nazov, new AnimovanyFilm(novyNazov, novyReziser, novyRok, novyVek));
@@ -191,7 +169,6 @@ public class Databaze {
             System.out.println("Film bol upraveny");
         }
     }
-
     public void saveToFile(String nazov) {
         if (prvkyDatabaze.get(nazov) instanceof HranyFilm) {
             try {
@@ -216,7 +193,6 @@ public class Databaze {
         else
             System.out.println("Nepodarilo sa ulozit film");
     }
-
     private void hodnotenieForSavingToFile(String nazov, FileWriter fw) throws IOException {
         ArrayList<Hodnotenie> hodnotenia = this.getHodnotenia(nazov);
         BufferedWriter bw = new BufferedWriter(fw);
@@ -233,8 +209,6 @@ public class Databaze {
         }
         bw.close();
     }
-
-
     public void loadFromFile(String nazov) {
         try {
             BufferedReader br = new BufferedReader(new FileReader(nazov + ".txt"));
@@ -272,15 +246,9 @@ public class Databaze {
             System.out.println("nepodarilo sa nacitat film");
         }
     }
-
-
     public void deleteActors(String nazov) {
         movieActors.remove(nazov);
     }
-
-
-
-
     public Connection connectToDatabase(String s) {
         try {
             Class.forName("org.sqlite.JDBC");
@@ -292,7 +260,6 @@ public class Databaze {
             return null;
         }
     }
-
     public void createTable(Connection conn) {
         try {
             Statement statement = conn.createStatement();
@@ -304,7 +271,6 @@ public class Databaze {
             System.out.println("Nepodarilo sa vytvorit tabulku");
         }
     }
-
     public void saveDatabase(Connection conn) {
         try {
             Statement statement = conn.createStatement();
@@ -334,8 +300,6 @@ public class Databaze {
             System.out.println("Nepodarilo sa ulozit databazu");
         }
     }
-
-
     public void loadDatabase(Connection conn) {
         try {
             Statement statement = conn.createStatement();
@@ -372,7 +336,4 @@ public class Databaze {
             System.out.println("Nepodarilo sa nacitat databazu");
         }
     }
-
-
-
 }
