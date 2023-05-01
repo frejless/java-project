@@ -1,18 +1,9 @@
-
 import java.sql.Connection;
 import java.util.Scanner;
-
-
-
-
-
 public class Test {
-
     static Databaze mojeDatabaze=new Databaze();
     static Scanner sc1 = new Scanner(System.in);
     static Scanner sc2 = new Scanner(System.in);
-
-
     public static int pouzeCelaCisla(Scanner sc) {
         int cislo;
         try {
@@ -31,6 +22,8 @@ public class Test {
     public static void main(String[] args) {
 
         Connection conn = mojeDatabaze.connectToDatabase("filmy.db");
+
+
 
         int volba;
         boolean run = true;
@@ -73,12 +66,12 @@ public class Test {
                     mojeDatabaze.createTable(conn);
                     mojeDatabaze.saveDatabase(conn);
                 }
+                case 14 -> mojeDatabaze.selectFromDb(conn, "SELECT * FROM movies");
+                case 15 -> mojeDatabaze.showAllTables(conn);
 
             }
         }
     }
-
-
     static void addFilm() {
         while (true) {
             System.out.println("Vyberte druh filmu :\n1 .. Hrany film\n2 .. Animovany film");
@@ -131,7 +124,6 @@ public class Test {
             }
         }
     }
-
     static void addRating() {
         System.out.println("Zadajte nazov filmu :");
         String nazov = sc2.nextLine();
@@ -171,7 +163,6 @@ public class Test {
                 System.out.println("Neplatna odpoved, zadajte y/n");
         }
     }
-
     static void deleteFilm() {
         System.out.println("Zadajte nazov filmu :");
         String nazov = sc2.nextLine();
@@ -181,7 +172,6 @@ public class Test {
         }
         mojeDatabaze.vymazFilm(nazov);
     }
-
     static void FilmInfo() {
         System.out.println("Zadajte nazov filmu :");
         String nazov = sc2.nextLine();
@@ -191,17 +181,14 @@ public class Test {
         }
         mojeDatabaze.getFilmInfo(nazov);
     }
-
     static void actorsInMultipleFilms() {
         mojeDatabaze.getActorsInMultipleFilms();
     }
-
     static void FilmsOfActor() {
         System.out.println("Zadajte meno herca :");
         String meno = sc2.nextLine();
         mojeDatabaze.getFilmsOfActor(meno);
     }
-
     static void editFilm() {
         System.out.println("Zadajte nazov filmu :");
         String nazov = sc2.nextLine();
@@ -257,10 +244,6 @@ public class Test {
                 } else
                     System.out.println("Neplatna odpoved, zadajte y/n");
             }
-
-
-
-
             System.out.println("Chcete zmenit zoznam hercov ? (y/n)");
             while(true) {
                 String odpoved = sc2.nextLine();
@@ -299,10 +282,6 @@ public class Test {
                 } else
                     System.out.println("Neplatna odpoved, zadajte y/n");
             }
-
-
-
-
             mojeDatabaze.editHranyFilm(nazov, novyNazov, novyReziser, novyRok);
 
         }
@@ -363,10 +342,6 @@ public class Test {
                 } else
                     System.out.println("Neplatna odpoved, zadajte y/n");
             }
-
-
-
-
             System.out.println("Chcete zmenit zoznam animatorov ? (y/n)");
             while(true) {
                 String odpoved = sc2.nextLine();
@@ -405,15 +380,9 @@ public class Test {
                 } else
                     System.out.println("Neplatna odpoved, zadajte y/n");
             }
-
-
-
-
-
             mojeDatabaze.editAnimovanyFilm(nazov, novyNazov, novyReziser, novyRok, novyVek);
         }
     }
-
     static void FilmToFile() {
         System.out.println("Zadajte nazov filmu :");
         String nazov = sc2.nextLine();
@@ -423,12 +392,12 @@ public class Test {
         }
         mojeDatabaze.saveToFile(nazov);
     }
-
     static void FilmFromFile(){
         System.out.println("Zadajte nazov filmu :");
         String nazov = sc2.nextLine();
         mojeDatabaze.loadFromFile(nazov);
     }
+
 
 
 }
