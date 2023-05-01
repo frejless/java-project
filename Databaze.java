@@ -311,26 +311,21 @@ public class Databaze {
             statement.executeUpdate("DELETE FROM movies");
             statement.executeUpdate("DELETE FROM actors");
             statement.executeUpdate("DELETE FROM ratings");
-            System.out.println("prvky tabulky: " + prvkyDatabaze.values());
             for (Film film : prvkyDatabaze.values()) {
                 if (film instanceof HranyFilm) {
                     statement.executeUpdate("INSERT INTO movies (name, director, year) VALUES ('" + film.getNazov() + "', '" + film.getReziser() + "', " + film.getRok() + ")");
-                    System.out.println("pridanie filmu");
                 }
                 else {
                     statement.executeUpdate("INSERT INTO movies (name, director, year, recommendedAge) VALUES ('" + film.getNazov() + "', '" + film.getReziser() + "', " + film.getRok() + ", " + ((AnimovanyFilm) film).getDoporucenyVek() + ")");
-                    System.out.println("pridanie animovaneho filmu");
                 }
                 if (movieActors.get(film.getNazov()) != null) {
                     for (String actor : movieActors.get(film.getNazov())) {
                         statement.executeUpdate("INSERT INTO actors (name, movie) VALUES ('" + actor + "', '" + film.getNazov() + "')");
-                        System.out.println("pridanie herca");
                     }
                 }
                 if (prvkyHodnotenia.get(film.getNazov()) != null) {
                     for (Hodnotenie hodnotenie : prvkyHodnotenia.get(film.getNazov())) {
                         statement.executeUpdate("INSERT INTO ratings (movie, rating, comment) VALUES ('" + film.getNazov() + "', " + hodnotenie.getHodnotenie() + ", '" + hodnotenie.getKomentar() + "')");
-                        System.out.println("pridanie hodnotenia");
                     }
                 }
             }
@@ -378,29 +373,6 @@ public class Databaze {
         }
     }
 
-    public void selectFromDb(Connection conn, String s) {
-        try {
-            Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery(s);
-            while (rs.next()) {
-                System.out.println(rs.getString("name"));
-            }
-        }
-        catch (Exception e) {
-            System.out.println("Nepodarilo sa vykonat prikaz");
-        }
-    }
-//    show tables; - in sql
 
-    public void showAllTables(Connection conn) {
-        try {
-            Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT name FROM sqlite_master WHERE type='table'");
-            while (rs.next()) {
-                System.out.println(rs.getString("name"));
-            }
-        } catch (Exception e) {
-            System.out.println("Nepodarilo sa vykonat prikaz");
-        }
-    }
+
 }
